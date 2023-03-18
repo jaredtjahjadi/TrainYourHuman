@@ -1,0 +1,27 @@
+# Ren'Py files
+cache/
+saves/
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.rpyc
+*.rpymc
+log.txt
+errors.txt
+traceback.txt
+files.txt
+
+# VS Code files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+.history
+.ionide
