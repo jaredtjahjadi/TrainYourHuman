@@ -122,6 +122,7 @@ label wake_up:
             $ renpy.pause(3, hard=True)
             "Your human has expired!"
             return
+        call screen BottomMenu
 
 # Eat option
 label eat:
