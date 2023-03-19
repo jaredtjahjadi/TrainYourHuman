@@ -6,13 +6,13 @@ You are a "god" that controls a human. A perfect human follows its daily routine
 
 **Trigger warning: This game features hints towards depression and death.**
 
-**Train Your Human** is a PC game where the player is a "god" (up to their interpretation) that controls a human as it partakes in its daily routine of eating, taking care of hygiene, watching TV, working, and buying the latest  things! The player must ensure that it does not deviate from it whatsoever so that the human can be trained to perfection! While embracing the minimalistic aesthetic inspired by the games [KIDS](https://playkids.ch/) and [Can Your Pet](https://canyour.pet/), the player will soon find that getting the human to partake in its daily routine is not as easy as it seems...
+**Train Your Human** is a PC/Mac game where the player is a "god" (up to their interpretation) that controls a human as it partakes in its daily routine of eating, taking care of hygiene, watching TV, working, and buying the latest  things! The player must ensure that it does not deviate from it whatsoever so that the human can be trained to perfection! While embracing the minimalistic aesthetic inspired by [KIDS](https://playkids.ch/) and gameplay inspired by [Can Your Pet](https://canyour.pet/), the player will soon find that getting the human to partake in its daily routine is not as normal as it seems...
 
 This game was created during the 2023 Ren'Py Competition hosted by Stony Brook University's Game Development and Design Club from March 9, 2023 to March 16, 2023.
 
 ## How to Install
 
-Officially released versions are available to download for PC (Windows and Linux) and Mac in this repository's [Releases page](https://github.com/jaredtjahjadi/TrainYourHuman/releases).
+Officially released versions are available to download for PC (Windows and Linux) and Mac in this repository's [Releases page](https://github.com/jaredtjahjadi/TrainYourHuman/releases). Patch notes for released updates can be found there.
 
 ## How to Build
 
@@ -45,24 +45,28 @@ Officially released versions are available to download for PC (Windows and Linux
 
 ## Known Issues
 
-- After clicking the last dialogue box at the end of the game, the game crashes saying "An exception has occurred."
-- In the last in-game day, when the player prompts the human to wake up, the eating animation plays after clicking out of the first few dialogue boxes.
-- The work minigame does not work properly.
-  - The intended behavior is to select ten random names from a pool of names, display them on the screen, and re-randomize the ten random names for each in-game day.
-  - The current behavior is that on Day 1, the first ten names in the pool are selected and displayed on the screen (i.e., the list is not randomized). From Day 2 onwards, the same ten names are shown in the order that the player ended on in Day 1. In other words, the ten names are already sorted. The current method of overcoming this issue is to resort any of the two names; the player will have completed the minigame and can further progress in the game.
+- ~~After clicking the last dialogue box at the end of the game, the game crashes saying "An exception has occurred."~~
+- ~~In the last in-game day, when the player prompts the human to wake up, the eating animation plays after clicking out of the first few dialogue boxes.~~
+- ~~The work minigame does not work properly.~~
+  - ~~The intended behavior is to select ten random names from a pool of names, display them on the screen, and re-randomize the ten random names for each in-game day.~~
+  - ~~The current behavior is that on Day 1, the first ten names in the pool are selected and displayed on the screen (i.e., the list is not randomized). From Day 2 onwards, the same ten names are shown in the order that the player ended on in Day 1. In other words, the ten names are already sorted. The current method of overcoming this issue is to resort any of the two names; the player will have completed the minigame and can further progress in the game.~~
+
+Crossed out items on the below list indicate that the bug in question has been fixed.
 
 ## Features to Be Implemented in the Future
 
 Due to time constraints, several features were unable to be implemented in the game before the Ren'Py Competition submission deadline. Along with fixing the above issues, future versions of the game will hopefully implement the following features:
 
 - Showering at night (no more stinky human!)
-- Changing title screen after game completion
+- ~~Changing title screen after game completion~~
 - Further distortion in names being sorted when work minigame is played as the game progresses
-- Implement title screen music
-- Change "Start" option in Title Screen to say "New Life"
-- Disable saving feature altogether (not visible in-game but auto-saves and quick saves are still generated in the files)
+- Title screen music
+- ~~Change "Start" option in Title Screen to say "New Life"~~
+- ~~Disable saving feature altogether (not visible in-game but auto-saves and quick saves are still generated in the files)~~
 - More work minigames
 - More interactivity in Eat, Hygiene, and Consume options
+
+Crossed out features on the above list indicate that the feature in question has been implemented.
 
 ## Credits
 

@@ -298,7 +298,7 @@ screen navigation():
 
         if main_menu:
 
-            textbutton _("Start") action Start()
+            textbutton _("New Life") action Start()
 
         else:
 
@@ -354,7 +354,10 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    if persistent.game_complete:
+        add "images/titlescreen_end.png"
+    else:
+        add gui.main_menu_background
 
     ## This empty frame darkens the main menu.
     frame:
@@ -417,10 +420,13 @@ style main_menu_version:
 screen game_menu(title, scroll=None, yinitial=0.0):
 
     style_prefix "game_menu"
-
-    if main_menu:
-        add gui.main_menu_background
-    else:
+    
+    if main_menu: # Player is on title screen or submenus in title screen
+        if persistent.game_complete:
+            add "images/titlescreen_end.png"
+        else:
+            add gui.main_menu_background
+    else: # Player is in middle of gameplay
         add gui.game_menu_background
 
     frame:

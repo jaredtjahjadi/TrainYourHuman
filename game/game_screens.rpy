@@ -1,31 +1,49 @@
 init python:
     import random # Random package needed to randomize names without it being a headache
     
-    # Pool of random names. Generated from https://www.name-generator.org.uk/quick/
-    names = ["Sarah Shepard", "Leyton Henry", "Rachael Ali", "Martina Bloggs", "Raihan Rosario",
-            "Cade Cisneros", "Louisa Soto", "Ned John", "Jannat Doherty", "Richard Levy",
-            "Carlo Price", "Douglas Bernard", "Mahnoor Paul", "Brandon Page", "Marjorie Lambert",
-            "Maisha Elliott", "Aryan Bates", "Kaitlyn Hart", "Angelica Mckenzie", "Tamara Michael",
-            "Wolfie"
-            ]
+    # Pool of random names. Generated from https://www.name-generator.org.uk/quick/ (and Wolfie :D)
+    # Any similarities between the randomly generated names and the name of any person in the real-world is purely coincidental
+    names = [
+        "Sarah Shepard", "Leyton Henry", "Rachael Ali", "Martina Bloggs", "Raihan Rosario",
+        "Cade Cisneros", "Louisa Soto", "Ned John", "Jannat Doherty", "Richard Levy",
+        "Carlo Price", "Douglas Bernard", "Mahnoor Paul", "Brandon Page", "Marjorie Lambert",
+        "Maisha Elliott", "Aryan Bates", "Kaitlyn Hart", "Angelica Mckenzie", "Tamara Michael",
+        "Alvin Collier", "Janet Walton", "Howard Barrett", "Herbert Calhoun", "Homer Davidson",
+        "Kieran Key", "Sean Byrd", "Aine Greer", "Haris Pineda", "Chiara Mcdowell",
+        "Yaseen Hammond", "Rosalie Hale", "Vera Mejia", "Zakaria Rangel", "Diane Soto",
+        "Gabrielle Daugherty", "Katrina Vega", "Jaya Boone","Rueben Donnelly", "Xavier Hurst",
+        "Zane Lane", "Shivam Luna", "Renee Garcia", "Ralph Contreras", "Marco Yang",
+        "Wolfie"
+    ]
     
-    curr_name = "" # Current name the user has selected
-    
+    distorted_names = [
+        "Shsjln Shfjnd", "Lefgjkln Hgsjkln", "Rjcsndkl Aijeurskl", "Mvkjflbn Bgriusl", "Rgrhfhjinksl Rhdtfjgh",
+        "Chfnwesji Crhjbxa", "Lfhrsja Sdkj", "Nfgb Jjnb", "Jfbhjwsv Dhsjkn", "Rsfferjhskln Lvefjsdklfn",
+        "Cfjnhwrskl Pferhjkvnl", "Dfrhel Bbtu", "Mheuvbfjkn Pfhsjkl", "Bfhruisjn Pjferive", "Mfhnskl Lngjrsdfklt",
+        "Mfwcvndsjk Ejklfsv", "Afhiskln Bgtrese", "Kfjrkesl Hfraej", "Ahgjskln Mdcjvklnmbtve", "Tjsdflmdk Mfnrjveasdkl",
+        "Zxhjckl Ugvfdsjn", "Xvfjnhd Vhsdfv", "Wpldsck Tyvfdscaa", "Yrghevjdkn Jklvsdasd", "Qujfwrsdl Jvxcgkijote",
+        "Wolfie"
+    ]
+
     # Randomizes the names
-    def randomNames(l):
-        random.shuffle(l)
+    def randomNames(name_list):
+        random.shuffle(name_list)
     
+    # Styling for unsorted name
     style.name_text = Style(style.default)
     style.name_text.color = "#f00"
     style.name_text.hover_color = "#ffaeae"
 
+    # Styling for unsorted name when selected
     style.selected_name_text = Style(style.default)
     style.selected_name_text.color = "#a71616"
     
+    # Styling for sorted name
     style.sorted_name_text = Style(style.default)
     style.sorted_name_text.color = "#2f9738"
     style.sorted_name_text.hover_color = "#b5ffb3"
 
+    # Styling for sorted name when selected
     style.selected_sorted_name_text = Style(style.default)
     style.selected_sorted_name_text.color = "#004712"
     style.selected_sorted_name_text.hover_color = "#316330"
@@ -33,9 +51,11 @@ init python:
 # Text in top-left of screen that indicates the current day (based on day variable) and time (morning or night)
 screen DayTimeText():
     if day <= 1053:
-        text "Day [day] - " + ("Night" if work_done else "Morning") yalign 0.01
+        text "Day [day] - " + ("Night" if work_done else "Morning") xalign 0.01 yalign 0.01
+    elif day < 1055:
+        text "Day ??? - " + ("Night" if work_done else "Morning") xalign 0.01 yalign 0.01
     else:
-        text "Day ??? - " + ("Night" if work_done else "Morning")
+        text "Day *?#|?}!% - " + ("Night" if work_done else "Morning") xalign 0.01 yalign 0.01
 
 screen BottomMenu(): # Menu that is displayed at the bottom of the screen at (almost) all times
     add "images/icon_bar.png" yalign 1.0
@@ -114,8 +134,10 @@ screen BottomMenu(): # Menu that is displayed at the bottom of the screen at (al
             else:
                 idle "images/icon_sleep_grey.png"
 
+## Work minigame
+# For each of the 10 randomly selected names from the name pool, create a textbutton for which the style will change
+# based on its selection/sorted status. When it is clicked, jump to a label that either selects it or swaps it
 screen WorkScreen():
-    $ randomNames(names)
     vbox ypos 70 spacing 27 xalign 0.5:
         textbutton "[firstTenNames[0]]":
             if firstTenNames[0] == sortedNames[0] and firstTenNames[0] == curr_name:
@@ -128,10 +150,10 @@ screen WorkScreen():
                 text_style "name_text"
             # If no name has not already been selected and the index of curr_name != 0 (i.e., we're not clicking on curr_name again)
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 0) # Swap names
+                action Jump("work_swap_0")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[0])
+                action Jump("work_select_name_0")
         textbutton "[firstTenNames[1]]":
             if firstTenNames[1] == sortedNames[1] and firstTenNames[1] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -142,10 +164,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 1) # Swap names
+                action Jump("work_swap_1")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[1])
+                action Jump("work_select_name_1")
         textbutton "[firstTenNames[2]]":
             if firstTenNames[2] == sortedNames[2] and firstTenNames[2] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -156,10 +178,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 2) # Swap names
+                action Jump("work_swap_2")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[2])
+                action Jump("work_select_name_2")
         textbutton "[firstTenNames[3]]":
             if firstTenNames[3] == sortedNames[3] and firstTenNames[3] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -170,10 +192,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 3) # Swap names
+                action Jump("work_swap_3")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[3])
+                action Jump("work_select_name_3")
         textbutton "[firstTenNames[4]]":
             if firstTenNames[4] == sortedNames[4] and firstTenNames[4] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -184,10 +206,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 4) # Swap names
+                action Jump("work_swap_4")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[4])
+                action Jump("work_select_name_4")
         textbutton "[firstTenNames[5]]":
             if firstTenNames[5] == sortedNames[5] and firstTenNames[5] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -198,10 +220,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 5) # Swap names
+                action Jump("work_swap_5")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[5])
+                action Jump("work_select_name_5")
         textbutton "[firstTenNames[6]]":
             if firstTenNames[6] == sortedNames[6] and firstTenNames[6] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -212,10 +234,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 6) # Swap names
+                action Jump("work_swap_6")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[6])
+                action Jump("work_select_name_6")
         textbutton "[firstTenNames[7]]":
             if firstTenNames[7] == sortedNames[7] and firstTenNames[7] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -226,10 +248,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 7) # Swap names
+                action Jump("work_swap_7")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[7])
+                action Jump("work_select_name_7")
         textbutton "[firstTenNames[8]]":
             if firstTenNames[8] == sortedNames[8] and firstTenNames[8] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -240,10 +262,10 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 8) # Swap names
+                action Jump("work_swap_8")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[8])
+                action Jump("work_select_name_8")
         textbutton "[firstTenNames[9]]":
             if firstTenNames[9] == sortedNames[9] and firstTenNames[9] == curr_name:
                 text_style "selected_sorted_name_text"
@@ -254,7 +276,7 @@ screen WorkScreen():
             else:
                 text_style "name_text"
             if name_selected:
-                action Call("working3", firstTenNames.index(curr_name), 9) # Swap names
+                action Jump("work_swap_9")
             # If a name has not already been selected
             elif name_selected == False:
-                action Call("working2", firstTenNames[9])
+                action Jump("work_select_name_9")
